@@ -22,9 +22,6 @@ class SuggestionsHeader extends Component {
           ]}
         >
           We found potential people you might be interested in!
-          <p className="modal-sub-text white-text">
-            (When accessing profile suggestions/search, you also allow users to
-            access your profile, so make sure to personalize it!)
           </p>
         </Card>
       </Col>
