@@ -1,20 +1,14 @@
 import React, { Component } from "react";
-import AgeSlider from "../settings/AgeSlider";
 import DistanceSlider from "../settings/DistanceSlider";
 import PopularitySlider from "../settings/PopularitySlider";
 import InterestTagsDumb from "../settings/InterestTagsDumb";
-import SelectGenderDumb from "../settings/SelectGenderDumb";
-import SelectSexOrientationDumb from "../settings/SelectSexOrientationDumb";
 
 class SearchCriteria extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ageRange: [18, 99],
       distance: 5,
       popularityRange: [0, 1000],
-      gender: "",
-      sexOrientation: "bi",
       userTags: [],
       allTags: []
     };
@@ -24,26 +18,14 @@ class SearchCriteria extends Component {
   componentDidMount() {
     this._isMounted = true;
     this.props.searchDataToParent({
-      ageRange: this.state.ageRange,
       distance: this.state.distance,
       popularityRange: this.state.popularityRange,
-      gender: this.state.gender,
-      sexOrientation: this.state.sexOrientation,
       userTags: this.state.userTags
     });
   }
-
-  handleAgeData = data => {
-    this._isMounted &&
-      this.setState({
-        ageRange: data
-      });
     this.props.searchDataToParent({
-      ageRange: data,
       distance: this.state.distance,
       popularityRange: this.state.popularityRange,
-      gender: this.state.gender,
-      sexOrientation: this.state.sexOrientation,
       userTags: this.state.userTags
     });
   };
@@ -54,11 +36,8 @@ class SearchCriteria extends Component {
         distance: data
       });
     this.props.searchDataToParent({
-      ageRange: this.state.ageRange,
       distance: data,
       popularityRange: this.state.popularityRange,
-      gender: this.state.gender,
-      sexOrientation: this.state.sexOrientation,
       userTags: this.state.userTags
     });
   };
@@ -69,11 +48,8 @@ class SearchCriteria extends Component {
         popularityRange: data
       });
     this.props.searchDataToParent({
-      ageRange: this.state.ageRange,
       distance: this.state.distance,
       popularityRange: data,
-      gender: this.state.gender,
-      sexOrientation: this.state.sexOrientation,
       userTags: this.state.userTags
     });
   };
@@ -84,44 +60,12 @@ class SearchCriteria extends Component {
         userTags: data
       });
     this.props.searchDataToParent({
-      ageRange: this.state.ageRange,
       distance: this.state.distance,
       popularityRange: this.state.popularityRange,
-      gender: this.state.gender,
-      sexOrientation: this.state.sexOrientation,
       userTags: data
     });
   };
 
-  handleGenderData = data => {
-    this._isMounted &&
-      this.setState({
-        gender: data
-      });
-    this.props.searchDataToParent({
-      ageRange: this.state.ageRange,
-      distance: this.state.distance,
-      popularityRange: this.state.popularityRange,
-      gender: data,
-      sexOrientation: this.state.sexOrientation,
-      userTags: this.state.userTags
-    });
-  };
-
-  handleSexOrientationData = data => {
-    this._isMounted &&
-      this.setState({
-        sexOrientation: data
-      });
-    this.props.searchDataToParent({
-      ageRange: this.state.ageRange,
-      distance: this.state.distance,
-      popularityRange: this.state.popularityRange,
-      gender: this.state.gender,
-      sexOrientation: data,
-      userTags: this.state.userTags
-    });
-  };
 
   componentWillUnmount() {
     this._isMounted = false;
@@ -131,9 +75,6 @@ class SearchCriteria extends Component {
     return (
       <div className="search-criteria">
         <span className="profile-fields-labels">Age</span>
-        <AgeSlider
-          range={this.state.ageRange}
-          ageToParent={this.handleAgeData}
         />
         <DistanceSlider
           value={this.state.distance}
@@ -142,11 +83,6 @@ class SearchCriteria extends Component {
         <PopularitySlider
           range={this.state.popularityRange}
           popularityToParent={this.handlePopularityData}
-        />
-        <span className="profile-fields-labels">Orientation</span>
-        <SelectGenderDumb genderToParent={this.handleGenderData} />
-        <SelectSexOrientationDumb
-          SexOrientationToParent={this.handleSexOrientationData}
         />
         <span className="profile-fields-labels">Interests</span>
         <InterestTagsDumb
