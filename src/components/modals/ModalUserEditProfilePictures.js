@@ -14,8 +14,7 @@ class ModalUserEditProfilePictures extends Component {
           trigger={false}
         >
           <p className="modal-intro">
-            Add up to 5 profile pictures (adding pictures helps with growing
-            popularity)
+            Add a profile picture!
           </p>
           <EditProfilePictures />
         </Modal>
