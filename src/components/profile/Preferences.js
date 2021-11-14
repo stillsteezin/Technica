@@ -8,8 +8,6 @@ class Preferences extends Component {
           <p className="profile-info-title">Preferences</p>
           <span className="profile-orientation">
             <i className="material-icons prefix pink-icon">wc</i>{" "}
-            <span className="profile-text-icon">
-              {this.props.user.sexual_orientation}
             </span>
           </span>{" "}
         </div>
