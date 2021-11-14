@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal } from "react-materialize";
-import AgeSlider from "../settings/AgeSlider";
 import DistanceSlider from "../settings/DistanceSlider";
 import PopularitySlider from "../settings/PopularitySlider";
 import InterestTagsDumb from "../settings/InterestTagsDumb";
@@ -11,7 +10,6 @@ class ModalUserListFilter extends Component {
     super(props);
     this.state = {
       userId: null,
-      ageRange: [18, 99],
       distance: 5,
       popularityRange: [0, 1000],
       userTags: [],
@@ -25,10 +23,6 @@ class ModalUserListFilter extends Component {
     this._isMounted &&
       this.setState({
         userId: this.props.userConnectedData.id,
-        ageRange: [
-          this.props.userConnectedData.age_min,
-          this.props.userConnectedData.age_max
-        ],
         distance: this.props.userConnectedData.distance_max,
         popularityRange: [
           this.props.userConnectedData.pop_min,
@@ -49,10 +43,6 @@ class ModalUserListFilter extends Component {
       this._isMounted &&
         this.setState({
           userId: this.props.userConnectedData.id,
-          ageRange: [
-            this.props.userConnectedData.age_min,
-            this.props.userConnectedData.age_max
-          ],
           distance: this.props.userConnectedData.distance_max,
           popularityRange: [
             this.props.userConnectedData.pop_min,
@@ -62,10 +52,6 @@ class ModalUserListFilter extends Component {
           allTags: this.props.userConnectedData.allTags
         });
       this.props.filterDataToParent({
-        ageRange: [
-          this.props.userConnectedData.age_min,
-          this.props.userConnectedData.age_max
-        ],
         distance: this.props.userConnectedData.distance_max,
         popularityRange: [
           this.props.userConnectedData.pop_min,
@@ -76,26 +62,12 @@ class ModalUserListFilter extends Component {
     }
   }
 
-  handleAgeData = data => {
-    this._isMounted &&
-      this.setState({
-        ageRange: data
-      });
-    this.props.filterDataToParent({
-      ageRange: data,
-      distance: this.state.distance,
-      popularityRange: this.state.popularityRange,
-      userTags: this.state.userTags
-    });
-  };
-
   handleDistanceData = data => {
     this._isMounted &&
       this.setState({
         distance: data
       });
     this.props.filterDataToParent({
-      ageRange: this.state.ageRange,
       distance: data,
       popularityRange: this.state.popularityRange,
       userTags: this.state.userTags
@@ -108,7 +80,6 @@ class ModalUserListFilter extends Component {
         popularityRange: data
       });
     this.props.filterDataToParent({
-      ageRange: this.state.ageRange,
       distance: this.state.distance,
       popularityRange: data,
       userTags: this.state.userTags
@@ -121,7 +92,6 @@ class ModalUserListFilter extends Component {
         userTags: data
       });
     this.props.filterDataToParent({
-      ageRange: this.state.ageRange,
       distance: this.state.distance,
       popularityRange: this.state.popularityRange,
       userTags: data
@@ -144,10 +114,6 @@ class ModalUserListFilter extends Component {
               suggestions
             </p>
             <span className="profile-fields-labels">Filter settings</span>
-            <AgeSlider
-              range={this.state.ageRange}
-              ageToParent={this.handleAgeData}
-            />
             <DistanceSlider
               value={this.state.distance}
               distanceToParent={this.handleDistanceData}
