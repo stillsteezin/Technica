@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Popscore from "../profile/Popscore";
-import { LikeButton, DislikeButton, LikeBackButton } from "../Buttons";
+import { LikeButton, LikeBackButton } from "../Buttons";
 import Male from "../../assets/male.png";
 import Female from "../../assets/female.png";
 import InterestTagsOnly from "../profile/InterestTagsOnly";
@@ -33,6 +33,9 @@ class UserCard extends Component {
         "clothing",
         "fashion",
         "music"
+        "software",
+        "coding"
+        "projects"
       ],
       age: "",
       picture: "",
@@ -154,21 +157,6 @@ class UserCard extends Component {
                   onClick={
                     this.props.pictures
                       ? e => this.handleDislike()
-                      : () => {
-                          alert(
-                            "You must add a picture to your profile to perform this action."
-                          );
-                        }
-                  }
-                >
-                  <DislikeButton />
-                </div>
-              ) : this.state.likedByProfile === true ? (
-                <div
-                  className="user-card-like-back-btn"
-                  onClick={
-                    this.props.pictures
-                      ? e => this.handleLikeBack()
                       : () => {
                           alert(
                             "You must add a picture to your profile to perform this action."
