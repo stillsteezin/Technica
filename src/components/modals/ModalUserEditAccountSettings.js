@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AgeSlider from "../settings/AgeSlider";
 import DistanceSlider from "../settings/DistanceSlider";
 import PopularitySlider from "../settings/PopularitySlider";
 import EditEmailBox from "../settings/EditEmailBox";
@@ -39,21 +38,6 @@ class ModalUserEditAccountSettings extends Component {
         ]
       });
   }
-
-  handleAgeData = data => {
-    this.props.updateUserData(
-      this.props.userConnectedData.id,
-      this.props.userConnectedData.username,
-      {
-        age_min: data[0],
-        age_max: data[1]
-      }
-    );
-    this._isMounted &&
-      this.setState({
-        ageRange: data
-      });
-  };
 
   handleDistanceData = data => {
     this.props.updateUserData(
@@ -103,14 +87,10 @@ class ModalUserEditAccountSettings extends Component {
             trigger={false}
           >
             <p className="modal-intro">
-              You can edit your Matcha discovery settings and personal account
+              You can edit your discovery settings and personal account
               settings
             </p>
             <span className="profile-fields-labels">Discovery settings</span>
-            <AgeSlider
-              range={this.state.ageRange}
-              ageToParent={this.handleAgeData}
-            />
             <DistanceSlider
               value={this.state.distance}
               distanceToParent={this.handleDistanceData}
