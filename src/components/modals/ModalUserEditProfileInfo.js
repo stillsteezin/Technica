@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import SelectGender from "../profileEdit/SelectGender";
-import SelectSexOrientation from "../profileEdit/SelectSexOrientation";
 import InputTwoNames from "../profileEdit/InputTwoNames";
 import InputBio from "../profileEdit/InputBio";
 import BirthdatePicker from "../profileEdit/BirthdatePicker";
@@ -16,7 +15,6 @@ class ModalUserEditProfileInfo extends Component {
     super(props);
     this.state = {
       gender: "",
-      sexOrientation: "",
       firstname: null,
       lastname: null,
       bio: "",
@@ -43,7 +41,6 @@ class ModalUserEditProfileInfo extends Component {
     this._isMounted &&
       this.setState({
         gender: this.props.userConnectedData.gender,
-        sexOrientation: this.props.userConnectedData.sexual_orientation,
         firstname: this.props.userConnectedData.firstname,
         lastname: this.props.userConnectedData.lastname,
         bio:
