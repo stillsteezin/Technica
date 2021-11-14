@@ -88,12 +88,7 @@ class UserProfile extends Component {
                     <img
                       className="profile-background-image"
                       src={
-                        this.state.user.sexual_orientation === "bi"
-                          ? ProfileBackgroundManWoman
-                          : (this.state.user.sexual_orientation === "hetero" &&
-                              this.state.user.gender === "man") ||
-                            (this.state.user.sexual_orientation === "homo" &&
-                              this.state.user.gender === "woman")
+                       
                           ? ProfileBackgroundWoman
                           : ProfileBackgroundMan
                       }
@@ -107,7 +102,6 @@ class UserProfile extends Component {
                           this.state.user.username &&
                         this.state.pictures.length !== 0 &&
                         this.props.userConnectedData.pictures.length !== 0 &&
-                        this.state.isBlocked !== true &&
                         (this.state.likesProfile === true ? (
                           <div
                             className="profile-dislike"
@@ -457,28 +451,6 @@ class UserProfile extends Component {
       );
   }
 
-  handleIsReported = () => {
-    ApiCall.user
-      .checkUserIsReported(this.Auth.getConfirm()["id"], this.state.user.id)
-      .then(res => {
-        this._isMounted &&
-          this.setState({
-            isReported: res.isReported
-          });
-      });
-  };
-
-  handleIsBlocked = async () => {
-    await ApiCall.user
-      .checkUserIsBlocked(this.Auth.getConfirm()["id"], this.state.user.id)
-      .then(res => {
-        this._isMounted &&
-          this.setState({
-            isBlocked: res.isBlocked
-          });
-      });
-  };
-
   handleLike() {
     ApiCall.user.createUserLike(
       this.state.user.id,
@@ -515,27 +487,6 @@ class UserProfile extends Component {
       this.state.socket.emit(
         "sendNotif",
         "like_back",
-        this.Auth.getConfirm()["id"],
-        this.state.user["id"]
-      );
-    }
-  }
-
-  handleDislike() {
-    ApiCall.user.deleteUserLike(
-      this.state.user.id,
-      this.Auth.getConfirm()["id"]
-    );
-
-    this._isMounted &&
-      this.setState({
-        likesProfile: false
-      });
-
-    if (this.state.socket !== "") {
-      this.state.socket.emit(
-        "sendNotif",
-        "dislike",
         this.Auth.getConfirm()["id"],
         this.state.user["id"]
       );
