@@ -10,7 +10,6 @@ class ModalUserSupervise extends Component {
       user_id: null,
       profilesVisited: [],
       profilesLiked: [],
-      profilesBlocked: []
     };
     this._isMounted = false;
   }
@@ -19,7 +18,6 @@ class ModalUserSupervise extends Component {
     this._isMounted = true;
     var profilesVisitedTab = [];
     var profilesLikedTab = [];
-    var profilesBlockedTab = [];
 
     await ApiCall.user
       .getUserProfilesVisited(this.props.user_id)
@@ -63,33 +61,11 @@ class ModalUserSupervise extends Component {
         }
       });
 
-    await ApiCall.user
-      .getUserProfilesBlocked(this.props.user_id)
-      .then(async res => {
-        if (res.length !== 0) {
-          await res.profiles_blocked.forEach(async (elem, index) => {
-            await profilesBlockedTab.push(elem);
-            await ApiCall.user
-              .getUserListProfileDataFromId(elem.user_id)
-              .then(async res => {
-                if (res.data.length !== 0) {
-                  profilesBlockedTab[index] = await Object.assign(
-                    {},
-                    profilesBlockedTab[index],
-                    res.data[0]
-                  );
-                }
-              });
-          });
-        }
-      });
-
     (await this._isMounted) &&
       this.setState({
         user_id: this.props.user_id,
         profilesVisited: profilesVisitedTab,
         profilesLiked: profilesLikedTab,
-        profilesBlocked: profilesBlockedTab
       });
   }
 
@@ -103,7 +79,7 @@ class ModalUserSupervise extends Component {
         <Modal
           id="user-supervise-modal"
           className="modals"
-          header="Manage visits, likes, users blocked"
+          header="Manage visits, likes"
           fixedFooter
           trigger={false}
         >
@@ -119,9 +95,6 @@ class ModalUserSupervise extends Component {
             <div className="user-list-reduced-container">
               <ViewProfilesList users={this.state.profilesLiked} />
             </div>
-            <span className="profile-fields-labels">Users blocked</span>
-            <div className="user-list-reduced-container">
-              <ViewProfilesList users={this.state.profilesBlocked} />
             </div>
           </div>
         </Modal>
